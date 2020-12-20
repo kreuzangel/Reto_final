@@ -6,7 +6,7 @@ const servToken = require('../services/token')
 module.exports = {
     list : async (req,res,next) =>{
         try {
-    const re =await Usuario.findAll(re)
+    const re =await Usuario.findAll()
 
     res.status(200).json(re)
         } catch (error) { 
@@ -14,15 +14,14 @@ module.exports = {
             next()
         } 
     },
-    add : async (req,res,next) =>{
-        try {
-            
-        
-            res.status(200).json(Re)
-                } catch (error) { 
-                    res.status(500).json({ 'error': 'Oops paso algo' })
-                    next()
-                } 
+        add : async (req,res,next) =>{
+            try {
+                const re = await Usuario.create(req.body)
+                res.status(200).json(re)
+            } catch (error) {
+                res.status(500).json({ 'error': 'Oops paso algo' })
+                next(error)
+            }
     },
     register : async (req,res,next) =>{
         res.status(200).send('se hará en el sprint 3')
