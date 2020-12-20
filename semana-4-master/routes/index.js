@@ -8,7 +8,7 @@ const articuloRouter = require('./articulo');
 const router = routerx();
 
 router.use('/articulo', articuloRouter);
-router.use('/usuario', articuloRouter);
-router.use('/categoria', articuloRouter);
+router.use('/usuario', usuarioRouter);
+router.use('/categoria', categoriaRouter);
 
 module.exports = router;
