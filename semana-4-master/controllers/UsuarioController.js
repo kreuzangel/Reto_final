@@ -8,16 +8,25 @@ module.exports = {
         try {
     const re =await Usuario.findAll(re)
 
-    res.status(200).json(Re)
+    res.status(200).json(re)
         } catch (error) { 
-            res.status(500).json({ 'error': 'Oops paso algo' })
+            res.status(500).json({ 'error': 'Oops paso algo que mal' })
             next()
         } 
+    },
+    add : async (req,res,next) =>{
+        try {
+            
+        
+            res.status(200).json(Re)
+                } catch (error) { 
+                    res.status(500).json({ 'error': 'Oops paso algo' })
+                    next()
+                } 
     },
     register : async (req,res,next) =>{
         res.status(200).send('se hará en el sprint 3')
     },
-
     login : async (req, res, next) => {
 
         try {
