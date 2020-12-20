@@ -25,7 +25,7 @@ module.exports = {
     //permite decodificar el token
     decode: async(token) => {
         try {
-            const  {id} = await jwt.verify(toke,'mipalabrasecreta')
+            const  {id} = await jwt.verify(jwt.JsonWebTokenError,'mipalabrasecreta')
             const user= await models.Usuario.findOne( {where: {id:id}})
             if(user){
                 return user;
