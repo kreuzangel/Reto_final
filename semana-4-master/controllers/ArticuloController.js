@@ -1,5 +1,6 @@
+const { request } = require('express');
 const { Articulo } = require('../models/');
-
+const articulo = require('../models/');
 
 
 module.exports = {
