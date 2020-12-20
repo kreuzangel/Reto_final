@@ -11,7 +11,7 @@ module.exports = {
     res.status(200).json(re)
         } catch (error) { 
             res.status(500).json({ 'error': 'Oops paso algo que mal' })
-            next()
+            next(error)
         } 
     },
     add : async (req,res,next) =>{
@@ -35,12 +35,11 @@ module.exports = {
                 const contrasenhaValida = bcrypt.compareSync(req.body.password, user.password)
                 if (contrasenhaValida) {
                    
-                    const token = servtoken.encode(user.id,user.rol)
+                    const token = servToken.encode(user.id,user.rol)
 
                     res.status(200).send({
-                        auth: true,
-                        tokenReturn: token,
-                        user: user
+                    
+                        tokenReturn: token
                     })
 
                 } else {

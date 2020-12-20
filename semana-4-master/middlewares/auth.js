@@ -3,11 +3,7 @@ const tokenService = require('../services/token');
 
 module.exports = {
     verifyUsuario: async (req, res, next) => {
-
-
         try {
-
-
             if (!req.headers.token) {
                 return res.status(404).send({
                     message: 'No token'
@@ -18,13 +14,15 @@ module.exports = {
                 next();
             } else {
                 return res.status(403).send({
-                    message: 'paso algo'
+                    message: 'No autorizado'
                 });
             }
         } catch {
             (error)
-
-        }
+            return res.status(500).send({
+                message: 'Paso Algo'
+        })
+    }
     },
     verifyAdministrador: async (req, res, next) => {
 
