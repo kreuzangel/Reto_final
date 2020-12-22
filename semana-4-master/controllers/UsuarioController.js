@@ -1,6 +1,8 @@
 const { Usuario } = require('../models/');
 const bcrypt = require('bcryptjs')
 const servToken = require('../services/token')
+const jwt = require('jsonwebtoken');
+
 
 
 module.exports = {
@@ -16,7 +18,9 @@ module.exports = {
     },
     add : async (req,res,next) =>{
             try {
+                req.body.password = bcrypt.hashSync(req.body.password, 10)
                 const re = await Usuario.create(req.body)
+
                 res.status(200).json(re)
             } catch (error) {
                 res.status(500).json({ 'error': 'Oops paso algo' })
@@ -30,20 +34,27 @@ module.exports = {
 
         try {
             const user = await Usuario.findOne({ where: { email: req.body.email } })
+
             if (user) {
                 // Evaluar contraseña
-                const contrasenhaValida = bcrypt.compareSync(req.body.password, user.password)
-                if (contrasenhaValida) {
-                   
-                    const token = servToken.encode(user.id,user.rol)
+                const contrasenhaValida= bcrypt.compareSync(req.body.password, user.password)
 
-                    res.status(200).json({
+                if (contrasenhaValida) 
+
+                {
+
+                   const token = servToken.encode(user.id,user.rol)
                     
-                        tokenReturn: token
+                    res.status(200).send({
+                        auth:  true,  
+                        tokenReturn: token,
+                        user: user
                     })
 
+
                 } else {
-                    res.status(401).json({ auth: false , tokenReturn: null , reason:
+                    
+                    res.status(401).json({ auth: false , email : user.password, tokenReturn: null , reason:
                         "Invalid Password!" });
                 }
 
